@@ -20,16 +20,14 @@ class TestRoom(unittest.TestCase):
 
     def test_check_in(self):
         self.instance_of_room.check_in(self.instance_of_guest)
-        is_in_room = self.instance_of_guest in self.instance_of_room.checked_in_guests
-        self.assertEqual(True, is_in_room)
+        self.assertEqual(1, len(self.instance_of_room.checked_in_guests))
         self.assertEqual(True, self.instance_of_guest.is_checked_in)
         self.assertEqual(90, self.instance_of_guest.money)
 
     def test_check_out(self):
         self.instance_of_room.check_in(self.instance_of_guest)
         self.instance_of_room.check_out(self.instance_of_guest)
-        is_in_room = self.instance_of_guest in self.instance_of_room.checked_in_guests
-        self.assertEqual(False, is_in_room)
+        self.assertEqual(0, len(self.instance_of_room.checked_in_guests))
         self.assertEqual(False, self.instance_of_guest.is_checked_in)
 
     def test_add_song_to_room(self):
@@ -39,7 +37,6 @@ class TestRoom(unittest.TestCase):
     def test_refuse_check_in(self):
         self.instance_of_room.checked_in_guests = [self.instance_of_guest_2, self.instance_of_guest_3, self.instance_of_guest_4]
         self.instance_of_room.check_in(self.instance_of_guest)
-        print(self.instance_of_room.checked_in_guests)
         self.assertEqual(3, len(self.instance_of_room.checked_in_guests))
 
     def test_favourite_song_is_in_room(self):

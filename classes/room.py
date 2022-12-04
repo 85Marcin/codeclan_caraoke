@@ -4,12 +4,13 @@ class Room:
         self.checked_in_guests = []
         self.room_capacity = room_capacity
         self.songs = []
+        self.entry_fee = 10
 
     def check_in(self, guest):
         if len(self.checked_in_guests) < self.room_capacity:
             guest.is_checked_in = True
             self.checked_in_guests.append(guest)
-            guest.money -= 10 # entry fee
+            guest.money -= self.entry_fee
             for song in self.songs:
                 if guest.favourite_song == song:
                     return "Wooh!"
