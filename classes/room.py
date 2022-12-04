@@ -1,11 +1,12 @@
 class Room:
-    def __init__(self, room_number):
-        self.room_number = room_number
+    def __init__(self, room_name, room_capacity):
+        self.room_number = room_name
         self.checked_in_guests = []
+        self.room_capacity = room_capacity
         self.songs = []
 
     def check_in(self, guest):
-        if len(self.checked_in_guests) < 3:
+        if len(self.checked_in_guests) < self.room_capacity:
             guest.is_checked_in = True
             self.checked_in_guests.append(guest)
             guest.money -= 10 # entry fee

@@ -5,14 +5,18 @@ from classes.song import Song
 
 class TestRoom(unittest.TestCase):
     def setUp(self):
-        self.instance_of_room = Room(1)
+        self.instance_of_room = Room("Red", 3)
         self.instance_of_song = Song ("Hurricane", "Bob Dylan")
-        self.another_instance_of_song = Song("All along the watchtower", "Bob Dylan")
+        self.instance_of_song_2 = Song("All along the watchtower", "Bob Dylan")
+        self.instance_of_song_3 = Song("Theme de yoyo", "Art ensamble of Chicago")
         self.instance_of_guest = Guest("Stephen", 100, self.instance_of_song)
+        self.instance_of_guest_2 = Guest("Peter", 75, self.instance_of_song_2)
+        self.instance_of_guest_3 = Guest("Lucy", 120, self.instance_of_song_2)
+        self.instance_of_guest_4 = Guest("Ben", 80, self.instance_of_song_3 )
 
     
-    def test_room_has_number(self):
-        self.assertEqual(1, self.instance_of_room.room_number)
+    def test_room_has_name(self):
+        self.assertEqual("Red", self.instance_of_room.room_number)
 
     def test_check_in(self):
         self.instance_of_room.check_in(self.instance_of_guest)
@@ -30,12 +34,12 @@ class TestRoom(unittest.TestCase):
 
     def test_add_song_to_room(self):
         self.instance_of_room.add_song(self.instance_of_song, self.instance_of_room)
-        # is_song_added_to_room = self.instance_of_song in self.instance_of_room.songs
         self.assertEqual(1, len(self.instance_of_room.songs))
 
     def test_refuse_check_in(self):
-        self.instance_of_room.checked_in_guests = ["Mike", "Jude", "Laura"]
+        self.instance_of_room.checked_in_guests = [self.instance_of_guest_2, self.instance_of_guest_3, self.instance_of_guest_4]
         self.instance_of_room.check_in(self.instance_of_guest)
+        print(self.instance_of_room.checked_in_guests)
         self.assertEqual(3, len(self.instance_of_room.checked_in_guests))
 
     def test_favourite_song_is_in_room(self):
